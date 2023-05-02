@@ -46,9 +46,20 @@ function* postPlant(action) {
   }
 }
 
+function* deletePlant(action) {
+  try {
+    yield axios.delete(`/api/plant/${action.playload}`);
+    yield put({ type: 'FETCH_PLANTS' });
+  } catch (error) {
+    console.log(`Error in deletePlant ${error}`)
+    alert('Something went wrong.');
+  }
+}
+
 function* rootSaga() {
     yield takeEvery('FETCH_PLANTS', fetchPlants);
     yield takeEvery('NEW_PLANT', postPlant);
+    yield takeEvery('REMOVE_PLANT', deletePlant)
 }
 
 const sagaMiddleware = createSagaMiddleware();

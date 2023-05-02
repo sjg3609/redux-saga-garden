@@ -9,8 +9,12 @@ function PlantList() {
 
     useEffect(() => {
         console.log('component did mount');
-        dispatch({ type: 'FETCH_PLANTS' })
+        dispatch({ type: 'FETCH_PLANTS' });
     }, []);
+
+    const removePlant = (id) => {
+        dispatch({ type: 'REMOVE_PLANT', payload: id });
+    }
 
     return (
         <div>
@@ -18,10 +22,11 @@ function PlantList() {
             <ul style={{listStyle: "none"}}>
                 {
                     plantList.map(plant => (
-                        <li key={plant.id}>{plant.name}</li>
+                        <li key={plant.id}>{plant.name}{'  '}<button onClick={() => removePlant(plant.id)}>Delete</button></li>
                     ))
                 }
-            </ul>
+            </ul> 
+
         </div>
     );
 }
